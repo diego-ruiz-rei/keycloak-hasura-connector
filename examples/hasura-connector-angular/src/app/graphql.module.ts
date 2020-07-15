@@ -3,11 +3,18 @@ import {ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
 import {HttpLinkModule, HttpLink} from 'apollo-angular-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import { environment } from 'src/environments/environment';
+import { ApolloLink } from 'apollo-link';
+import { setContext } from 'apollo-link-context';
 
 const uri = environment.apiServer; // <-- add the URL of the GraphQL server here
 export function createApollo(httpLink: HttpLink) {
+  const basic = setContext((operation, context) => ({
+    headers: {
+      "X-Hasura-Admin-Secret": 'admin'
+    }
+  }));
   return {
-    link: httpLink.create({uri}),
+    link: ApolloLink.from([basic, httpLink.create({uri})]),
     cache: new InMemoryCache(),
   };
 }

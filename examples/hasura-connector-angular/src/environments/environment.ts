@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiServer: 'http://localhost:8080/v1/graphql',
+  apiServer: 'http://hasura.drtest0713.reisys.io/v1/graphql',
 };
 
 /*

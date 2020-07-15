@@ -21,9 +21,8 @@ export class AppComponent implements OnInit {
       .query({
         query: gql`
           {
-            products {
+            todos {
               id
-              name
             }
           }
         `,
